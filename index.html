@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AI Safety System</title>
+<title>AI Industrial Safety Platform</title>
 
 <style>
 
@@ -16,178 +16,166 @@ font-family:Arial;
 }
 
 body{
-background:#f4f7fb;
-padding-bottom:80px;
+background:#eef3ff;
+color:#222;
 }
 
-.topbar{
-background:#1677ff;
-padding:20px;
+header{
+background:#0d47ff;
 color:white;
+padding:18px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.2);
 }
 
-.lang button{
+header h1{
+font-size:28px;
+}
+
+.lang-buttons button{
+margin-left:8px;
+padding:8px 14px;
 border:none;
-padding:8px 12px;
-margin-left:5px;
 border-radius:10px;
 cursor:pointer;
 font-weight:bold;
 }
 
+.container{
+padding:20px;
+padding-bottom:100px;
+}
+
 .page{
 display:none;
-padding:20px;
+animation:fade 0.3s;
 }
 
 .active{
 display:block;
 }
 
+@keyframes fade{
+from{opacity:0;}
+to{opacity:1;}
+}
+
 .card{
 background:white;
-padding:20px;
-border-radius:20px;
-margin-bottom:20px;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
+padding:18px;
+margin-bottom:18px;
+border-radius:18px;
+box-shadow:0 3px 12px rgba(0,0,0,0.1);
+}
+
+.card h2{
+margin-bottom:12px;
 }
 
 .worker{
-background:white;
-padding:15px;
-border-radius:18px;
-margin-bottom:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+padding:14px;
+border-radius:12px;
+background:#f6f8ff;
+margin-top:12px;
 cursor:pointer;
-box-shadow:0 2px 8px rgba(0,0,0,0.05);
+transition:0.3s;
 }
 
-.worker-left{
-display:flex;
-align-items:center;
-gap:15px;
+.worker:hover{
+transform:scale(1.02);
+background:#e8eeff;
 }
 
-.avatar{
-width:55px;
-height:55px;
-border-radius:50%;
-background:#1677ff;
-display:flex;
-justify-content:center;
-align-items:center;
+.alert{
+background:#ffe9e9;
+padding:12px;
+border-left:6px solid red;
+margin-top:12px;
+border-radius:10px;
+}
+
+.monitor-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+}
+
+.camera{
+background:black;
+height:220px;
+border-radius:18px;
+position:relative;
+overflow:hidden;
+}
+
+.camera video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.camera-label{
+position:absolute;
+top:10px;
+left:10px;
+background:red;
 color:white;
-font-size:22px;
-font-weight:bold;
+padding:6px 10px;
+border-radius:10px;
+font-size:13px;
 }
 
-.safe{
-background:#d1fadf;
-color:green;
-padding:6px 12px;
-border-radius:20px;
-font-weight:bold;
+.ai-box{
+position:absolute;
+border:3px solid red;
+width:90px;
+height:90px;
+top:60px;
+left:120px;
+animation:blink 1s infinite;
 }
 
-.warning{
-background:#fff4d6;
-color:orange;
-padding:6px 12px;
-border-radius:20px;
-font-weight:bold;
-}
-
-.danger{
-background:#ffe2e2;
-color:red;
-padding:6px 12px;
-border-radius:20px;
-font-weight:bold;
-animation:flash 1s infinite;
-}
-
-@keyframes flash{
-0%{opacity:1;}
-50%{opacity:0.5;}
-100%{opacity:1;}
+@keyframes blink{
+50%{opacity:0.3;}
 }
 
 .bottom-nav{
 position:fixed;
 bottom:0;
-width:100%;
+left:0;
+right:0;
+height:75px;
 background:white;
 display:flex;
 justify-content:space-around;
-padding:12px;
-box-shadow:0 -2px 10px rgba(0,0,0,0.08);
+align-items:center;
+box-shadow:0 -2px 12px rgba(0,0,0,0.15);
 }
 
-.bottom-nav div{
+.nav-btn{
 cursor:pointer;
+font-size:14px;
 text-align:center;
 }
 
-.modal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-display:none;
-justify-content:center;
-align-items:center;
-}
-
-.modal-content{
-background:white;
-padding:25px;
-border-radius:20px;
-width:90%;
-max-width:400px;
-}
-
-.modal-content p{
-margin:10px 0;
-}
-
-.close-btn{
-width:100%;
-padding:12px;
-border:none;
-background:#1677ff;
-color:white;
-border-radius:12px;
-margin-top:20px;
-cursor:pointer;
-}
-
-.alert{
-padding:15px;
-border-radius:15px;
-margin-bottom:15px;
+.big-risk{
+font-size:32px;
 font-weight:bold;
-}
-
-.red{
-background:#ffe2e2;
 color:red;
+margin-top:12px;
 }
 
-.yellow{
-background:#fff4d6;
-color:orange;
+.live{
+color:#00ff66;
+font-weight:bold;
+animation:blink 1s infinite;
 }
 
-.green{
-background:#d1fadf;
-color:green;
+.status{
+margin-top:8px;
+font-size:14px;
 }
 
 </style>
@@ -195,91 +183,110 @@ color:green;
 
 <body>
 
-<div class="topbar">
+<header>
 
-<h1 id="title">AI Safety System</h1>
+<h1 id="title">AI工业安全平台</h1>
 
-<div class="lang">
-<button onclick="setLanguage('zh')">中文</button>
-<button onclick="setLanguage('en')">EN</button>
-<button onclick="setLanguage('kr')">한국어</button>
+<div class="lang-buttons">
+<button onclick="setLang('zh')">中文</button>
+<button onclick="setLang('en')">EN</button>
+<button onclick="setLang('ko')">한국어</button>
 </div>
 
-</div>
+</header>
+
+<div class="container">
 
 <!-- HOME -->
 
-<div class="page active" id="homePage">
+<div id="home" class="page active">
 
 <div class="card">
+<h2 id="dashboardTitle">实时AI安全总览</h2>
 
-<h2 id="overviewTitle"></h2>
+<div class="big-risk" id="riskLevel">
+高风险区域：A区高空施工
+</div>
 
-<p id="workersText"></p>
-<p id="cameraText"></p>
-<p id="watchText"></p>
-<p id="heatText"></p>
+<p class="status" id="status1">
+AI检测到2名工人存在安全风险
+</p>
+
+<p class="status" id="status2">
+系统已自动通知现场负责人
+</p>
 
 </div>
 
-<div class="alert red" id="alert1"></div>
-<div class="alert yellow" id="alert2"></div>
-<div class="alert green" id="alert3"></div>
+<div class="card">
+
+<h2 id="aiAnalysis">AI事故分析</h2>
+
+<div class="alert" id="alert1">
+Park 未佩戴安全绳，存在高空坠落风险
+</div>
+
+<div class="alert" id="alert2">
+Lee 心率异常，疑似中暑
+</div>
+
+<div class="alert" id="alert3">
+A区温度达到39°C
+</div>
+
+</div>
 
 </div>
 
 <!-- WORKERS -->
 
-<div class="page" id="workersPage">
+<div id="workers" class="page">
 
-<div class="worker" onclick="showWorker('Kim')">
+<div class="card">
 
-<div class="worker-left">
+<h2 id="workerTitle">工人实时状态</h2>
 
-<div class="avatar">K</div>
+<div class="worker">
 
-<div>
-<h3>Kim</h3>
-<p id="job1"></p>
-</div>
+<h3 id="worker1Name">Kim - 电工</h3>
 
-</div>
+<p id="worker1Info">
+心率：128 / 疲劳度：高 / 位置：A区
+</p>
 
-<div class="safe" id="safeText"></div>
-
-</div>
-
-<div class="worker" onclick="showWorker('Lee')">
-
-<div class="worker-left">
-
-<div class="avatar">L</div>
-
-<div>
-<h3>Lee</h3>
-<p id="job2"></p>
-</div>
+<p id="worker1Risk">
+AI判断：高温作业风险
+</p>
 
 </div>
 
-<div class="warning" id="warningText"></div>
+<div class="worker">
+
+<h3 id="worker2Name">Park - 高空作业</h3>
+
+<p id="worker2Info">
+安全绳：未连接 / 高度：18m
+</p>
+
+<p id="worker2Risk">
+AI判断：高空坠落危险
+</p>
 
 </div>
 
-<div class="worker" onclick="showWorker('Park')">
+<div class="worker">
 
-<div class="worker-left">
+<h3 id="worker3Name">Lee - 焊接工</h3>
 
-<div class="avatar">P</div>
+<p id="worker3Info">
+体温：38.6°C / 心率：132
+</p>
 
-<div>
-<h3>Park</h3>
-<p id="job3"></p>
+<p id="worker3Risk">
+AI判断：疑似中暑
+</p>
+
 </div>
-
-</div>
-
-<div class="danger" id="dangerText"></div>
 
 </div>
 
@@ -287,22 +294,75 @@ color:green;
 
 <!-- ALERTS -->
 
-<div class="page" id="alertsPage">
+<div id="alerts" class="page">
 
 <div class="card">
 
-<h2 id="analysisTitle"></h2>
+<h2 id="alertTitle">AI报警中心</h2>
 
-<p id="analysis1"></p>
-<br>
+<div class="alert" id="danger1">
+危险等级：高 ｜ 高空未系安全绳
+</div>
 
-<p id="analysis2"></p>
-<br>
+<div class="alert" id="danger2">
+危险等级：中 ｜ 工人心率异常
+</div>
 
-<p id="analysis3"></p>
-<br>
+<div class="alert" id="danger3">
+危险等级：高 ｜ 现场温度过高
+</div>
 
-<p id="analysis4"></p>
+</div>
+
+</div>
+
+<!-- MONITOR -->
+
+<div id="monitor" class="page">
+
+<div class="card">
+
+<h2 id="monitorTitle">实时监控中心</h2>
+
+<div class="monitor-grid">
+
+<div class="camera">
+
+<div class="camera-label">
+LIVE
+</div>
+
+<div class="ai-box"></div>
+
+<video autoplay muted loop>
+<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<div class="camera">
+
+<div class="camera-label">
+AI TRACKING
+</div>
+
+<div class="ai-box" style="top:90px;left:180px;"></div>
+
+<video autoplay muted loop>
+<source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+</video>
+
+</div>
+
+</div>
+
+<div class="alert" id="monitorAlert">
+AI检测：B区工人未佩戴安全帽
+</div>
+
+<div class="alert" id="monitorAlert2">
+管理员建议：立即现场确认
+</div>
 
 </div>
 
@@ -310,334 +370,195 @@ color:green;
 
 <!-- SETTINGS -->
 
-<div class="page" id="settingsPage">
+<div id="settings" class="page">
 
 <div class="card">
 
-<h2 id="settingTitle"></h2>
+<h2 id="settingTitle">系统设置</h2>
 
-<p id="setting1"></p>
-<br>
+<p id="setting1">
+AI监测：开启
+</p>
 
-<p id="setting2"></p>
-<br>
+<p id="setting2">
+实时警报：开启
+</p>
 
-<p id="setting3"></p>
-<br>
+<p id="setting3">
+多语言系统：已启用
+</p>
 
-<p id="setting4"></p>
-
-</div>
-
-</div>
-
-<!-- MODAL -->
-
-<div class="modal" id="modal">
-
-<div class="modal-content">
-
-<h2 id="modalName"></h2>
-
-<p id="modalJob"></p>
-<p id="modalHeart"></p>
-<p id="modalStatus"></p>
-<p id="modalLocation"></p>
-<p id="modalDetect"></p>
-<p id="modalReason"></p>
-<p id="modalRisk"></p>
-
-<button class="close-btn"
-onclick="closeModal()"
-id="closeBtn"></button>
+<p id="setting4">
+摄像头状态：在线
+</p>
 
 </div>
 
 </div>
 
-<!-- NAV -->
+</div>
+
+<!-- NAVIGATION -->
 
 <div class="bottom-nav">
 
-<div onclick="showPage('homePage')" id="navHome"></div>
+<div class="nav-btn" onclick="showPage('home')" id="navHome">
+🏠<br>Home
+</div>
 
-<div onclick="showPage('workersPage')" id="navWorkers"></div>
+<div class="nav-btn" onclick="showPage('workers')" id="navWorkers">
+👷<br>Workers
+</div>
 
-<div onclick="showPage('alertsPage')" id="navAlerts"></div>
+<div class="nav-btn" onclick="showPage('alerts')" id="navAlerts">
+🚨<br>Alerts
+</div>
 
-<div onclick="showPage('settingsPage')" id="navSettings"></div>
+<div class="nav-btn" onclick="showPage('monitor')" id="navMonitor">
+📹<br>Monitor
+</div>
+
+<div class="nav-btn" onclick="showPage('settings')" id="navSettings">
+⚙️<br>Settings
+</div>
 
 </div>
 
 <script>
 
-let currentLang="zh";
+function showPage(page){
+
+document.querySelectorAll('.page').forEach(p=>{
+p.classList.remove('active');
+});
+
+document.getElementById(page).classList.add('active');
+
+}
 
 const translations={
 
 zh:{
-title:"AI工业安全系统",
-overview:"系统总览",
-workers:"👷 工人数：128",
-camera:"📷 AI摄像头：12台在线",
-watch:"⌚ 智能手环：127已连接",
-heat:"🌡️ 高温预警：开启",
 
-alert1:"🚨 Park 未系安全绳，存在高空坠落风险",
-alert2:"⚠️ Lee 长时间高温作业，存在中暑风险",
-alert3:"✅ AI系统运行正常",
+title:"AI工业安全平台",
+dashboardTitle:"实时AI安全总览",
+riskLevel:"高风险区域：A区高空施工",
+status1:"AI检测到2名工人存在安全风险",
+status2:"系统已自动通知现场负责人",
+aiAnalysis:"AI事故分析",
+alert1:"Park 未佩戴安全绳，存在高空坠落风险",
+alert2:"Lee 心率异常，疑似中暑",
+alert3:"A区温度达到39°C",
+workerTitle:"工人实时状态",
+worker1Name:"Kim - 电工",
+worker1Info:"心率：128 / 疲劳度：高 / 位置：A区",
+worker1Risk:"AI判断：高温作业风险",
+worker2Name:"Park - 高空作业",
+worker2Info:"安全绳：未连接 / 高度：18m",
+worker2Risk:"AI判断：高空坠落危险",
+worker3Name:"Lee - 焊接工",
+worker3Info:"体温：38.6°C / 心率：132",
+worker3Risk:"AI判断：疑似中暑",
+alertTitle:"AI报警中心",
+danger1:"危险等级：高 ｜ 高空未系安全绳",
+danger2:"危险等级：中 ｜ 工人心率异常",
+danger3:"危险等级：高 ｜ 现场温度过高",
+monitorTitle:"实时监控中心",
+monitorAlert:"AI检测：B区工人未佩戴安全帽",
+monitorAlert2:"管理员建议：立即现场确认",
+settingTitle:"系统设置",
+setting1:"AI监测：开启",
+setting2:"实时警报：开启",
+setting3:"多语言系统：已启用",
+setting4:"摄像头状态：在线"
 
-job1:"电工",
-job2:"焊接工",
-job3:"高空作业",
-
-safe:"安全",
-warning:"警告",
-danger:"危险",
-
-analysis:"AI事故分析",
-
-analysis1:"📷 AI摄像头检测：Park 未佩戴安全绳",
-analysis2:"⌚ 智能手环检测：Lee 心率超过120",
-analysis3:"🌡️ 环境传感器：现场温度39℃",
-analysis4:"🤖 AI综合判断：存在中暑与坠落风险",
-
-setting:"设备连接状态",
-
-setting1:"📷 AI摄像头：12台在线",
-setting2:"⌚ 智能手环：127已连接",
-setting3:"🏥 医院急救系统：已连接",
-setting4:"🚑 紧急联动：已开启",
-
-home:"🏠<br>首页",
-workersNav:"👷<br>工人",
-alerts:"🚨<br>警报",
-settings:"⚙️<br>设置",
-
-close:"关闭"
 },
 
 en:{
-title:"AI Industrial Safety System",
-overview:"System Overview",
-workers:"👷 Workers: 128",
-camera:"📷 AI Cameras: 12 Online",
-watch:"⌚ Smart Watches: 127 Connected",
-heat:"🌡️ Heat Warning: Enabled",
 
-alert1:"🚨 Park without safety rope",
-alert2:"⚠️ Lee working under high heat",
-alert3:"✅ AI system operating normally",
+title:"AI Industrial Safety Platform",
+dashboardTitle:"Real-time AI Safety Overview",
+riskLevel:"High Risk Area: Zone A High-altitude Work",
+status1:"AI detected safety risks for 2 workers",
+status2:"System has notified site manager",
+aiAnalysis:"AI Accident Analysis",
+alert1:"Park is not wearing a safety harness",
+alert2:"Lee has abnormal heart rate",
+alert3:"Zone A temperature reached 39°C",
+workerTitle:"Real-time Worker Status",
+worker1Name:"Kim - Electrician",
+worker1Info:"Heart Rate:128 / Fatigue:High / Area:A",
+worker1Risk:"AI Risk: Heat Stress",
+worker2Name:"Park - High-altitude Worker",
+worker2Info:"Safety Rope:Disconnected / Height:18m",
+worker2Risk:"AI Risk: Falling Hazard",
+worker3Name:"Lee - Welder",
+worker3Info:"Temperature:38.6°C / Heart Rate:132",
+worker3Risk:"AI Risk: Possible Heatstroke",
+alertTitle:"AI Alert Center",
+danger1:"High Risk ｜ No Safety Harness",
+danger2:"Medium Risk ｜ Abnormal Heart Rate",
+danger3:"High Risk ｜ High Temperature",
+monitorTitle:"Real-time Monitoring Center",
+monitorAlert:"AI detected worker without helmet",
+monitorAlert2:"Admin Suggestion: Verify on site",
+settingTitle:"System Settings",
+setting1:"AI Monitoring: ON",
+setting2:"Real-time Alert: ON",
+setting3:"Multi-language: Enabled",
+setting4:"Camera Status: Online"
 
-job1:"Electrician",
-job2:"Welder",
-job3:"High-altitude Worker",
-
-safe:"SAFE",
-warning:"WARNING",
-danger:"DANGER",
-
-analysis:"AI Accident Analysis",
-
-analysis1:"📷 AI Camera Detection: Park without safety rope",
-analysis2:"⌚ Smart Watch Detection: Lee heart rate over 120",
-analysis3:"🌡️ Environment Sensor: Temperature 39℃",
-analysis4:"🤖 AI Analysis: Heatstroke and fall risk detected",
-
-setting:"Device Connection Status",
-
-setting1:"📷 AI Cameras: 12 Online",
-setting2:"⌚ Smart Watches: 127 Connected",
-setting3:"🏥 Hospital Emergency System Connected",
-setting4:"🚑 Emergency Linkage Enabled",
-
-home:"🏠<br>Home",
-workersNav:"👷<br>Workers",
-alerts:"🚨<br>Alerts",
-settings:"⚙️<br>Settings",
-
-close:"Close"
 },
 
-kr:{
+ko:{
+
 title:"AI 산업 안전 시스템",
-overview:"시스템 개요",
-workers:"👷 작업자 수: 128",
-camera:"📷 AI 카메라: 12대 연결",
-watch:"⌚ 스마트워치: 127개 연결",
-heat:"🌡️ 고온 경고 활성화",
+dashboardTitle:"실시간 AI 안전 개요",
+riskLevel:"고위험 구역: A구역 고공 작업",
+status1:"AI가 2명의 작업자 위험을 감지했습니다",
+status2:"현장 관리자에게 자동 알림 전송",
+aiAnalysis:"AI 사고 분석",
+alert1:"Park 안전벨트 미착용",
+alert2:"Lee 심박수 이상 감지",
+alert3:"A구역 온도 39°C 도달",
+workerTitle:"작업자 실시간 상태",
+worker1Name:"Kim - 전기 기술자",
+worker1Info:"심박수:128 / 피로도:높음 / 위치:A구역",
+worker1Risk:"AI 위험 분석: 고온 작업",
+worker2Name:"Park - 고공 작업자",
+worker2Info:"안전줄 미연결 / 높이:18m",
+worker2Risk:"AI 위험 분석: 추락 위험",
+worker3Name:"Lee - 용접 작업자",
+worker3Info:"체온:38.6°C / 심박수:132",
+worker3Risk:"AI 위험 분석: 열사병 의심",
+alertTitle:"AI 경고 센터",
+danger1:"위험 등급: 높음 ｜ 안전벨트 미착용",
+danger2:"위험 등급: 중간 ｜ 심박수 이상",
+danger3:"위험 등급: 높음 ｜ 현장 고온",
+monitorTitle:"실시간 모니터링 센터",
+monitorAlert:"AI 감지: B구역 안전모 미착용",
+monitorAlert2:"관리자 권장: 현장 즉시 확인",
+settingTitle:"시스템 설정",
+setting1:"AI 모니터링: 활성화",
+setting2:"실시간 경고: 활성화",
+setting3:"다국어 시스템: 활성화",
+setting4:"카메라 상태: 온라인"
 
-alert1:"🚨 Park 안전줄 미착용",
-alert2:"⚠️ Lee 고온 작업 중",
-alert3:"✅ AI 시스템 정상 작동",
-
-job1:"전기 기사",
-job2:"용접공",
-job3:"고공 작업",
-
-safe:"안전",
-warning:"경고",
-danger:"위험",
-
-analysis:"AI 사고 분석",
-
-analysis1:"📷 AI 카메라 감지: Park 안전줄 미착용",
-analysis2:"⌚ 스마트워치 감지: Lee 심박수 120 초과",
-analysis3:"🌡️ 환경 센서: 현장 온도 39℃",
-analysis4:"🤖 AI 분석: 열사병 및 추락 위험",
-
-setting:"장비 연결 상태",
-
-setting1:"📷 AI 카메라: 12대 연결",
-setting2:"⌚ 스마트워치: 127개 연결",
-setting3:"🏥 병원 응급 시스템 연결 완료",
-setting4:"🚑 긴급 연동 활성화",
-
-home:"🏠<br>홈",
-workersNav:"👷<br>작업자",
-alerts:"🚨<br>경고",
-settings:"⚙️<br>설정",
-
-close:"닫기"
 }
 
 };
 
-function setLanguage(lang){
+function setLang(lang){
 
-currentLang=lang;
+const t=translations[lang];
 
-let t=translations[lang];
+for(let key in t){
 
-document.getElementById("title").innerHTML=t.title;
-
-document.getElementById("overviewTitle").innerHTML=t.overview;
-
-document.getElementById("workersText").innerHTML=t.workers;
-
-document.getElementById("cameraText").innerHTML=t.camera;
-
-document.getElementById("watchText").innerHTML=t.watch;
-
-document.getElementById("heatText").innerHTML=t.heat;
-
-document.getElementById("alert1").innerHTML=t.alert1;
-
-document.getElementById("alert2").innerHTML=t.alert2;
-
-document.getElementById("alert3").innerHTML=t.alert3;
-
-document.getElementById("job1").innerHTML=t.job1;
-
-document.getElementById("job2").innerHTML=t.job2;
-
-document.getElementById("job3").innerHTML=t.job3;
-
-document.getElementById("safeText").innerHTML=t.safe;
-
-document.getElementById("warningText").innerHTML=t.warning;
-
-document.getElementById("dangerText").innerHTML=t.danger;
-
-document.getElementById("analysisTitle").innerHTML=t.analysis;
-
-document.getElementById("analysis1").innerHTML=t.analysis1;
-
-document.getElementById("analysis2").innerHTML=t.analysis2;
-
-document.getElementById("analysis3").innerHTML=t.analysis3;
-
-document.getElementById("analysis4").innerHTML=t.analysis4;
-
-document.getElementById("settingTitle").innerHTML=t.setting;
-
-document.getElementById("setting1").innerHTML=t.setting1;
-
-document.getElementById("setting2").innerHTML=t.setting2;
-
-document.getElementById("setting3").innerHTML=t.setting3;
-
-document.getElementById("setting4").innerHTML=t.setting4;
-
-document.getElementById("navHome").innerHTML=t.home;
-
-document.getElementById("navWorkers").innerHTML=t.workersNav;
-
-document.getElementById("navAlerts").innerHTML=t.alerts;
-
-document.getElementById("navSettings").innerHTML=t.settings;
-
-document.getElementById("closeBtn").innerHTML=t.close;
+document.getElementById(key).innerText=t[key];
 
 }
 
-function showPage(id){
-
-document.querySelectorAll(".page")
-.forEach(page=>{
-page.classList.remove("active");
-});
-
-document.getElementById(id)
-.classList.add("active");
-
 }
-
-function showWorker(name){
-
-const data={
-
-Kim:{
-zh:["电工","正常","A区3层","AI摄像头+手环","佩戴安全帽","无危险"],
-en:["Electrician","Safe","Zone A Floor 3","AI Camera + Watch","Helmet detected","No danger"],
-kr:["전기 기사","정상","A구역 3층","AI 카메라 + 워치","안전모 착용","위험 없음"]
-},
-
-Lee:{
-zh:["焊接工","疲劳","B区2层","智能手环","高温作业","中暑风险"],
-en:["Welder","Fatigue","Zone B Floor 2","Smart Watch","High temperature work","Heatstroke risk"],
-kr:["용접공","피로","B구역 2층","스마트워치","고온 작업","열사병 위험"]
-},
-
-Park:{
-zh:["高空作业","危险","C区高空","AI摄像头","未系安全绳","坠落风险"],
-en:["High-altitude Worker","Danger","Zone C High Area","AI Camera","No safety rope","Fall risk"],
-kr:["고공 작업","위험","C구역 고공","AI 카메라","안전줄 미착용","추락 위험"]
-}
-
-};
-
-let d=data[name][currentLang];
-
-document.getElementById("modal")
-.style.display="flex";
-
-document.getElementById("modalName").innerHTML=name;
-
-document.getElementById("modalJob").innerHTML="👷 "+d[0];
-
-document.getElementById("modalHeart").innerHTML="❤️ Heart Rate: "+(70+Math.floor(Math.random()*50));
-
-document.getElementById("modalStatus").innerHTML="📊 "+d[1];
-
-document.getElementById("modalLocation").innerHTML="📍 "+d[2];
-
-document.getElementById("modalDetect").innerHTML="📡 "+d[3];
-
-document.getElementById("modalReason").innerHTML="⚠️ "+d[4];
-
-document.getElementById("modalRisk").innerHTML="🚨 "+d[5];
-
-}
-
-function closeModal(){
-
-document.getElementById("modal")
-.style.display="none";
-
-}
-
-setLanguage("zh");
 
 </script>
 
