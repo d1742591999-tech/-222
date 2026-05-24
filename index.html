@@ -3,394 +3,356 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AI Industrial Safety Platform</title>
+<title>AI Industrial Safety System</title>
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-background:#eef3ff;
-color:#222;
+    background:#eef3ff;
+    color:#222;
 }
 
 header{
-background:#0d47ff;
-color:white;
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    background:linear-gradient(90deg,#0048ff,#00a2ff);
+    color:white;
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
 header h1{
-font-size:28px;
+    font-size:24px;
 }
 
 .lang-buttons button{
-margin-left:8px;
-padding:8px 14px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
+    margin-left:8px;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
 .container{
-padding:20px;
-padding-bottom:100px;
-}
-
-.page{
-display:none;
-animation:fade 0.3s;
-}
-
-.active{
-display:block;
-}
-
-@keyframes fade{
-from{opacity:0;}
-to{opacity:1;}
+    padding:18px;
 }
 
 .card{
-background:white;
-padding:18px;
-margin-bottom:18px;
-border-radius:18px;
-box-shadow:0 3px 12px rgba(0,0,0,0.1);
-}
-
-.card h2{
-margin-bottom:12px;
-}
-
-.worker{
-padding:14px;
-border-radius:12px;
-background:#f6f8ff;
-margin-top:12px;
-cursor:pointer;
-transition:0.3s;
-}
-
-.worker:hover{
-transform:scale(1.02);
-background:#e8eeff;
-}
-
-.alert{
-background:#ffe9e9;
-padding:12px;
-border-left:6px solid red;
-margin-top:12px;
-border-radius:10px;
-}
-
-.monitor-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px;
-}
-
-.camera{
-background:black;
-height:220px;
-border-radius:18px;
-position:relative;
-overflow:hidden;
-}
-
-.camera video{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.camera-label{
-position:absolute;
-top:10px;
-left:10px;
-background:red;
-color:white;
-padding:6px 10px;
-border-radius:10px;
-font-size:13px;
-}
-
-.ai-box{
-position:absolute;
-border:3px solid red;
-width:90px;
-height:90px;
-top:60px;
-left:120px;
-animation:blink 1s infinite;
-}
-
-@keyframes blink{
-50%{opacity:0.3;}
-}
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-height:75px;
-background:white;
-display:flex;
-justify-content:space-around;
-align-items:center;
-box-shadow:0 -2px 12px rgba(0,0,0,0.15);
-}
-
-.nav-btn{
-cursor:pointer;
-font-size:14px;
-text-align:center;
-}
-
-.big-risk{
-font-size:32px;
-font-weight:bold;
-color:red;
-margin-top:12px;
-}
-
-.live{
-color:#00ff66;
-font-weight:bold;
-animation:blink 1s infinite;
+    background:white;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
 .status{
-margin-top:8px;
-font-size:14px;
+    display:flex;
+    align-items:center;
+    margin-top:10px;
+    font-size:16px;
 }
 
+.dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    margin-right:10px;
+}
+
+.green{background:#18c964;}
+.red{background:#ff4d4f;}
+.orange{background:#ff9f1a;}
+
+.worker-list{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:15px;
+}
+
+.worker{
+    background:#f7f9ff;
+    padding:15px;
+    border-radius:14px;
+    border-left:6px solid #005eff;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.worker:hover{
+    transform:scale(1.01);
+}
+
+.worker h3{
+    margin-bottom:8px;
+}
+
+.monitor-box{
+    width:100%;
+    height:320px;
+    background:black;
+    border-radius:18px;
+    position:relative;
+    overflow:hidden;
+    margin-top:15px;
+}
+
+.scan-line{
+    position:absolute;
+    width:100%;
+    height:3px;
+    background:red;
+    animation:scan 3s linear infinite;
+}
+
+@keyframes scan{
+    0%{top:0;}
+    100%{top:100%;}
+}
+
+.red-box{
+    position:absolute;
+    border:3px solid red;
+    width:120px;
+    height:160px;
+    top:70px;
+    left:80px;
+    animation:flash 1s infinite;
+}
+
+.red-box2{
+    position:absolute;
+    border:3px solid red;
+    width:100px;
+    height:140px;
+    top:100px;
+    right:120px;
+    animation:flash 1s infinite;
+}
+
+@keyframes flash{
+    0%{opacity:1;}
+    50%{opacity:0.4;}
+    100%{opacity:1;}
+}
+
+.camera-text{
+    position:absolute;
+    color:#00ff66;
+    font-size:18px;
+    left:20px;
+    top:20px;
+}
+
+.alert{
+    background:#fff1f0;
+    border-left:6px solid red;
+}
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    padding:12px;
+    box-shadow:0 -2px 8px rgba(0,0,0,0.1);
+}
+
+.bottom-nav button{
+    border:none;
+    background:none;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.page{
+    display:none;
+}
+
+.active{
+    display:block;
+}
+
+.big-number{
+    font-size:40px;
+    font-weight:bold;
+    color:#005eff;
+    margin-top:10px;
+}
+
+.live-tag{
+    color:red;
+    font-weight:bold;
+    animation:flash 1s infinite;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-
-<h1 id="title">AI工业安全平台</h1>
+<h1 id="title">AI工业安全系统</h1>
 
 <div class="lang-buttons">
 <button onclick="setLang('zh')">中文</button>
 <button onclick="setLang('en')">EN</button>
-<button onclick="setLang('ko')">한국어</button>
+<button onclick="setLang('kr')">한국어</button>
 </div>
-
 </header>
 
 <div class="container">
 
 <!-- HOME -->
-
 <div id="home" class="page active">
 
 <div class="card">
-<h2 id="dashboardTitle">实时AI安全总览</h2>
+<h2 id="overviewTitle">实时安全总览</h2>
 
-<div class="big-risk" id="riskLevel">
-高风险区域：A区高空施工
+<div class="big-number" id="safeWorkers">24</div>
+<p id="safeText">当前安全作业人数</p>
+
+<div class="status">
+<div class="dot green"></div>
+<span id="systemNormal">AI系统运行正常</span>
 </div>
 
-<p class="status" id="status1">
-AI检测到2名工人存在安全风险
-</p>
-
-<p class="status" id="status2">
-系统已自动通知现场负责人
-</p>
-
+<div class="status">
+<div class="dot orange"></div>
+<span id="weatherRisk">高温预警：39°C</span>
 </div>
 
-<div class="card">
-
-<h2 id="aiAnalysis">AI事故分析</h2>
-
-<div class="alert" id="alert1">
-Park 未佩戴安全绳，存在高空坠落风险
+<div class="status">
+<div class="dot red"></div>
+<span id="riskWorkers">2名工人存在风险</span>
+</div>
 </div>
 
-<div class="alert" id="alert2">
-Lee 心率异常，疑似中暑
+<div class="card alert">
+<h2 id="aiAlertTitle">AI事故分析</h2>
+
+<div class="status">
+<div class="dot red"></div>
+<span id="alert1">AI摄像头检测：Park未佩戴安全绳</span>
 </div>
 
-<div class="alert" id="alert3">
-A区温度达到39°C
+<div class="status">
+<div class="dot orange"></div>
+<span id="alert2">Lee心率超过120</span>
 </div>
 
+<div class="status">
+<div class="dot red"></div>
+<span id="alert3">现场温度达到39°C</span>
+</div>
+
+<div class="status">
+<div class="dot red"></div>
+<span id="alert4">AI判断存在中暑风险</span>
+</div>
 </div>
 
 </div>
 
 <!-- WORKERS -->
-
 <div id="workers" class="page">
 
 <div class="card">
-
 <h2 id="workerTitle">工人实时状态</h2>
 
-<div class="worker">
+<div class="worker-list">
 
-<h3 id="worker1Name">Kim - 电工</h3>
-
-<p id="worker1Info">
-心率：128 / 疲劳度：高 / 位置：A区
-</p>
-
-<p id="worker1Risk">
-AI判断：高温作业风险
-</p>
-
+<div class="worker" onclick="showDetail('park')">
+<h3 id="parkName">Park - 电工</h3>
+<p id="parkInfo">未佩戴安全绳 / 高空区域</p>
 </div>
 
-<div class="worker">
-
-<h3 id="worker2Name">Park - 高空作业</h3>
-
-<p id="worker2Info">
-安全绳：未连接 / 高度：18m
-</p>
-
-<p id="worker2Risk">
-AI判断：高空坠落危险
-</p>
-
+<div class="worker" onclick="showDetail('lee')">
+<h3 id="leeName">Lee - 焊接工</h3>
+<p id="leeInfo">心率异常 / 高温区域</p>
 </div>
 
-<div class="worker">
+<div class="worker" onclick="showDetail('kim')">
+<h3 id="kimName">Kim - 设备检查员</h3>
+<p id="kimInfo">状态正常</p>
+</div>
 
-<h3 id="worker3Name">Lee - 焊接工</h3>
+</div>
+</div>
 
-<p id="worker3Info">
-体温：38.6°C / 心率：132
-</p>
-
-<p id="worker3Risk">
-AI判断：疑似中暑
-</p>
-
+<div class="card" id="detailBox">
+<h2 id="detailTitle">工人详细信息</h2>
+<p id="detailText">点击工人查看详细状态</p>
 </div>
 
 </div>
 
+<!-- CAMERA -->
+<div id="camera" class="page">
+
+<div class="card">
+<h2 id="cameraTitle">AI现场监控</h2>
+
+<p class="live-tag" id="liveText">● 实时监控中</p>
+
+<div class="monitor-box">
+
+<div class="camera-text" id="cameraWaiting">
+AI CAMERA STANDBY...
 </div>
 
-<!-- ALERTS -->
+<div class="scan-line"></div>
 
+<div class="red-box"></div>
+<div class="red-box2"></div>
+
+</div>
+
+<div style="margin-top:15px;">
+<p id="cameraInfo1">AI正在等待人员进入识别区域</p>
+<p id="cameraInfo2">红框：人体识别区域</p>
+<p id="cameraInfo3">红线：实时扫描中</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- ALERT -->
 <div id="alerts" class="page">
 
-<div class="card">
+<div class="card alert">
+<h2 id="dangerTitle">紧急事故中心</h2>
 
-<h2 id="alertTitle">AI报警中心</h2>
-
-<div class="alert" id="danger1">
-危险等级：高 ｜ 高空未系安全绳
+<div class="status">
+<div class="dot red"></div>
+<span id="danger1">Park存在坠落风险</span>
 </div>
 
-<div class="alert" id="danger2">
-危险等级：中 ｜ 工人心率异常
+<div class="status">
+<div class="dot red"></div>
+<span id="danger2">Lee存在中暑风险</span>
 </div>
 
-<div class="alert" id="danger3">
-危险等级：高 ｜ 现场温度过高
+<div class="status">
+<div class="dot orange"></div>
+<span id="danger3">现场温度过高</span>
 </div>
 
+<div class="status">
+<div class="dot red"></div>
+<span id="danger4">建议立即暂停危险区域作业</span>
 </div>
-
-</div>
-
-<!-- MONITOR -->
-
-<div id="monitor" class="page">
-
-<div class="card">
-
-<h2 id="monitorTitle">实时监控中心</h2>
-
-<div class="monitor-grid">
-
-<div class="camera">
-
-<div class="camera-label">
-LIVE
-</div>
-
-<div class="ai-box"></div>
-
-<video autoplay muted loop>
-<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-</video>
-
-</div>
-
-<div class="camera">
-
-<div class="camera-label">
-AI TRACKING
-</div>
-
-<div class="ai-box" style="top:90px;left:180px;"></div>
-
-<video autoplay muted loop>
-<source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
-</video>
-
-</div>
-
-</div>
-
-<div class="alert" id="monitorAlert">
-AI检测：B区工人未佩戴安全帽
-</div>
-
-<div class="alert" id="monitorAlert2">
-管理员建议：立即现场确认
-</div>
-
-</div>
-
-</div>
-
-<!-- SETTINGS -->
-
-<div id="settings" class="page">
-
-<div class="card">
-
-<h2 id="settingTitle">系统设置</h2>
-
-<p id="setting1">
-AI监测：开启
-</p>
-
-<p id="setting2">
-实时警报：开启
-</p>
-
-<p id="setting3">
-多语言系统：已启用
-</p>
-
-<p id="setting4">
-摄像头状态：在线
-</p>
 
 </div>
 
@@ -398,29 +360,16 @@ AI监测：开启
 
 </div>
 
-<!-- NAVIGATION -->
-
+<!-- NAV -->
 <div class="bottom-nav">
 
-<div class="nav-btn" onclick="showPage('home')" id="navHome">
-🏠<br>Home
-</div>
+<button onclick="showPage('home')" id="navHome">Home</button>
 
-<div class="nav-btn" onclick="showPage('workers')" id="navWorkers">
-👷<br>Workers
-</div>
+<button onclick="showPage('workers')" id="navWorkers">Workers</button>
 
-<div class="nav-btn" onclick="showPage('alerts')" id="navAlerts">
-🚨<br>Alerts
-</div>
+<button onclick="showPage('camera')" id="navCamera">Camera</button>
 
-<div class="nav-btn" onclick="showPage('monitor')" id="navMonitor">
-📹<br>Monitor
-</div>
-
-<div class="nav-btn" onclick="showPage('settings')" id="navSettings">
-⚙️<br>Settings
-</div>
+<button onclick="showPage('alerts')" id="navAlerts">Alerts</button>
 
 </div>
 
@@ -428,136 +377,207 @@ AI监测：开启
 
 function showPage(page){
 
-document.querySelectorAll('.page').forEach(p=>{
-p.classList.remove('active');
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
 });
 
-document.getElementById(page).classList.add('active');
+document.getElementById(page).classList.add("active");
+}
+
+function showDetail(worker){
+
+const detailText=document.getElementById("detailText");
+
+if(currentLang==="zh"){
+
+if(worker==="park"){
+detailText.innerHTML=
+"姓名：Park<br>职位：电工<br>危险原因：未佩戴安全绳<br>风险等级：高危<br>建议：立即停止作业";
+}
+
+if(worker==="lee"){
+detailText.innerHTML=
+"姓名：Lee<br>职位：焊接工<br>危险原因：心率异常+高温<br>风险等级：中危<br>建议：立即休息";
+}
+
+if(worker==="kim"){
+detailText.innerHTML=
+"姓名：Kim<br>职位：设备检查员<br>状态：正常<br>风险等级：安全";
+}
 
 }
 
-const translations={
+if(currentLang==="en"){
+
+if(worker==="park"){
+detailText.innerHTML=
+"Name: Park<br>Job: Electrician<br>Risk: No safety rope<br>Level: High Risk<br>Action: Stop work immediately";
+}
+
+if(worker==="lee"){
+detailText.innerHTML=
+"Name: Lee<br>Job: Welder<br>Risk: High heart rate + Heat<br>Level: Medium Risk<br>Action: Take immediate rest";
+}
+
+if(worker==="kim"){
+detailText.innerHTML=
+"Name: Kim<br>Job: Equipment Inspector<br>Status: Normal<br>Risk Level: Safe";
+}
+
+}
+
+if(currentLang==="kr"){
+
+if(worker==="park"){
+detailText.innerHTML=
+"이름: Park<br>직업: 전기기사<br>위험: 안전줄 미착용<br>위험등급: 높음<br>조치: 즉시 작업 중지";
+}
+
+if(worker==="lee"){
+detailText.innerHTML=
+"이름: Lee<br>직업: 용접공<br>위험: 심박수 이상 + 고온<br>위험등급: 중간<br>조치: 즉시 휴식";
+}
+
+if(worker==="kim"){
+detailText.innerHTML=
+"이름: Kim<br>직업: 장비 검사원<br>상태: 정상<br>위험등급: 안전";
+}
+
+}
+
+}
+
+let currentLang="zh";
+
+function setLang(lang){
+
+currentLang=lang;
+
+const t={
 
 zh:{
-
-title:"AI工业安全平台",
-dashboardTitle:"实时AI安全总览",
-riskLevel:"高风险区域：A区高空施工",
-status1:"AI检测到2名工人存在安全风险",
-status2:"系统已自动通知现场负责人",
-aiAnalysis:"AI事故分析",
-alert1:"Park 未佩戴安全绳，存在高空坠落风险",
-alert2:"Lee 心率异常，疑似中暑",
-alert3:"A区温度达到39°C",
+title:"AI工业安全系统",
+overviewTitle:"实时安全总览",
+safeText:"当前安全作业人数",
+systemNormal:"AI系统运行正常",
+weatherRisk:"高温预警：39°C",
+riskWorkers:"2名工人存在风险",
+aiAlertTitle:"AI事故分析",
+alert1:"AI摄像头检测：Park未佩戴安全绳",
+alert2:"Lee心率超过120",
+alert3:"现场温度达到39°C",
+alert4:"AI判断存在中暑风险",
 workerTitle:"工人实时状态",
-worker1Name:"Kim - 电工",
-worker1Info:"心率：128 / 疲劳度：高 / 位置：A区",
-worker1Risk:"AI判断：高温作业风险",
-worker2Name:"Park - 高空作业",
-worker2Info:"安全绳：未连接 / 高度：18m",
-worker2Risk:"AI判断：高空坠落危险",
-worker3Name:"Lee - 焊接工",
-worker3Info:"体温：38.6°C / 心率：132",
-worker3Risk:"AI判断：疑似中暑",
-alertTitle:"AI报警中心",
-danger1:"危险等级：高 ｜ 高空未系安全绳",
-danger2:"危险等级：中 ｜ 工人心率异常",
-danger3:"危险等级：高 ｜ 现场温度过高",
-monitorTitle:"实时监控中心",
-monitorAlert:"AI检测：B区工人未佩戴安全帽",
-monitorAlert2:"管理员建议：立即现场确认",
-settingTitle:"系统设置",
-setting1:"AI监测：开启",
-setting2:"实时警报：开启",
-setting3:"多语言系统：已启用",
-setting4:"摄像头状态：在线"
-
+parkName:"Park - 电工",
+parkInfo:"未佩戴安全绳 / 高空区域",
+leeName:"Lee - 焊接工",
+leeInfo:"心率异常 / 高温区域",
+kimName:"Kim - 设备检查员",
+kimInfo:"状态正常",
+detailTitle:"工人详细信息",
+cameraTitle:"AI现场监控",
+liveText:"● 实时监控中",
+cameraWaiting:"AI CAMERA STANDBY...",
+cameraInfo1:"AI正在等待人员进入识别区域",
+cameraInfo2:"红框：人体识别区域",
+cameraInfo3:"红线：实时扫描中",
+dangerTitle:"紧急事故中心",
+danger1:"Park存在坠落风险",
+danger2:"Lee存在中暑风险",
+danger3:"现场温度过高",
+danger4:"建议立即暂停危险区域作业",
+navHome:"首页",
+navWorkers:"工人",
+navCamera:"监控",
+navAlerts:"警报"
 },
 
 en:{
-
-title:"AI Industrial Safety Platform",
-dashboardTitle:"Real-time AI Safety Overview",
-riskLevel:"High Risk Area: Zone A High-altitude Work",
-status1:"AI detected safety risks for 2 workers",
-status2:"System has notified site manager",
-aiAnalysis:"AI Accident Analysis",
-alert1:"Park is not wearing a safety harness",
-alert2:"Lee has abnormal heart rate",
-alert3:"Zone A temperature reached 39°C",
-workerTitle:"Real-time Worker Status",
-worker1Name:"Kim - Electrician",
-worker1Info:"Heart Rate:128 / Fatigue:High / Area:A",
-worker1Risk:"AI Risk: Heat Stress",
-worker2Name:"Park - High-altitude Worker",
-worker2Info:"Safety Rope:Disconnected / Height:18m",
-worker2Risk:"AI Risk: Falling Hazard",
-worker3Name:"Lee - Welder",
-worker3Info:"Temperature:38.6°C / Heart Rate:132",
-worker3Risk:"AI Risk: Possible Heatstroke",
-alertTitle:"AI Alert Center",
-danger1:"High Risk ｜ No Safety Harness",
-danger2:"Medium Risk ｜ Abnormal Heart Rate",
-danger3:"High Risk ｜ High Temperature",
-monitorTitle:"Real-time Monitoring Center",
-monitorAlert:"AI detected worker without helmet",
-monitorAlert2:"Admin Suggestion: Verify on site",
-settingTitle:"System Settings",
-setting1:"AI Monitoring: ON",
-setting2:"Real-time Alert: ON",
-setting3:"Multi-language: Enabled",
-setting4:"Camera Status: Online"
-
+title:"AI Industrial Safety System",
+overviewTitle:"Real-time Safety Overview",
+safeText:"Workers Operating Safely",
+systemNormal:"AI System Running Normally",
+weatherRisk:"Heat Warning: 39°C",
+riskWorkers:"2 Workers At Risk",
+aiAlertTitle:"AI Accident Analysis",
+alert1:"AI Camera: Park without safety rope",
+alert2:"Lee heart rate above 120",
+alert3:"Site temperature reached 39°C",
+alert4:"AI detected heatstroke risk",
+workerTitle:"Worker Real-time Status",
+parkName:"Park - Electrician",
+parkInfo:"No safety rope / High area",
+leeName:"Lee - Welder",
+leeInfo:"Abnormal heart rate / Hot area",
+kimName:"Kim - Equipment Inspector",
+kimInfo:"Normal status",
+detailTitle:"Worker Details",
+cameraTitle:"AI Live Monitoring",
+liveText:"● Live Monitoring",
+cameraWaiting:"AI CAMERA STANDBY...",
+cameraInfo1:"AI waiting for workers entering detection area",
+cameraInfo2:"Red box: Human detection zone",
+cameraInfo3:"Red line: Real-time scanning",
+dangerTitle:"Emergency Center",
+danger1:"Park has falling risk",
+danger2:"Lee has heatstroke risk",
+danger3:"Site temperature too high",
+danger4:"Recommended to stop dangerous operations",
+navHome:"Home",
+navWorkers:"Workers",
+navCamera:"Camera",
+navAlerts:"Alerts"
 },
 
-ko:{
-
+kr:{
 title:"AI 산업 안전 시스템",
-dashboardTitle:"실시간 AI 안전 개요",
-riskLevel:"고위험 구역: A구역 고공 작업",
-status1:"AI가 2명의 작업자 위험을 감지했습니다",
-status2:"현장 관리자에게 자동 알림 전송",
-aiAnalysis:"AI 사고 분석",
-alert1:"Park 안전벨트 미착용",
-alert2:"Lee 심박수 이상 감지",
-alert3:"A구역 온도 39°C 도달",
+overviewTitle:"실시간 안전 현황",
+safeText:"현재 안전 작업 인원",
+systemNormal:"AI 시스템 정상 작동",
+weatherRisk:"고온 경고: 39°C",
+riskWorkers:"위험 작업자 2명",
+aiAlertTitle:"AI 사고 분석",
+alert1:"AI 카메라 감지: Park 안전줄 미착용",
+alert2:"Lee 심박수 120 초과",
+alert3:"현장 온도 39°C",
+alert4:"AI가 열사병 위험 감지",
 workerTitle:"작업자 실시간 상태",
-worker1Name:"Kim - 전기 기술자",
-worker1Info:"심박수:128 / 피로도:높음 / 위치:A구역",
-worker1Risk:"AI 위험 분석: 고온 작업",
-worker2Name:"Park - 고공 작업자",
-worker2Info:"안전줄 미연결 / 높이:18m",
-worker2Risk:"AI 위험 분석: 추락 위험",
-worker3Name:"Lee - 용접 작업자",
-worker3Info:"체온:38.6°C / 심박수:132",
-worker3Risk:"AI 위험 분석: 열사병 의심",
-alertTitle:"AI 경고 센터",
-danger1:"위험 등급: 높음 ｜ 안전벨트 미착용",
-danger2:"위험 등급: 중간 ｜ 심박수 이상",
-danger3:"위험 등급: 높음 ｜ 현장 고온",
-monitorTitle:"실시간 모니터링 센터",
-monitorAlert:"AI 감지: B구역 안전모 미착용",
-monitorAlert2:"관리자 권장: 현장 즉시 확인",
-settingTitle:"시스템 설정",
-setting1:"AI 모니터링: 활성화",
-setting2:"실시간 경고: 활성화",
-setting3:"다국어 시스템: 활성화",
-setting4:"카메라 상태: 온라인"
-
+parkName:"Park - 전기기사",
+parkInfo:"안전줄 미착용 / 고소 작업",
+leeName:"Lee - 용접공",
+leeInfo:"심박수 이상 / 고온 지역",
+kimName:"Kim - 장비 검사원",
+kimInfo:"정상 상태",
+detailTitle:"작업자 상세 정보",
+cameraTitle:"AI 현장 모니터링",
+liveText:"● 실시간 모니터링",
+cameraWaiting:"AI CAMERA STANDBY...",
+cameraInfo1:"AI가 작업자 진입 대기 중",
+cameraInfo2:"빨간 박스: 인체 감지 구역",
+cameraInfo3:"빨간 선: 실시간 스캔",
+dangerTitle:"긴급 사고 센터",
+danger1:"Park 추락 위험 존재",
+danger2:"Lee 열사병 위험 존재",
+danger3:"현장 온도 과다",
+danger4:"위험 구역 작업 중단 권장",
+navHome:"홈",
+navWorkers:"작업자",
+navCamera:"카메라",
+navAlerts:"경고"
 }
 
 };
 
-function setLang(lang){
-
-const t=translations[lang];
-
-for(let key in t){
-
-document.getElementById(key).innerText=t[key];
-
+for(let id in t[lang]){
+document.getElementById(id).innerHTML=t[lang][id];
 }
 
+document.getElementById("detailText").innerHTML=
+lang==="zh"
+?"点击工人查看详细状态"
+:lang==="en"
+?"Click worker to view details"
+:"작업자를 클릭하여 상세 정보 보기";
 }
 
 </script>
