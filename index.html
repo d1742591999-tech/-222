@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Industrial Safety Platform</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+background:#050816;
+color:white;
+font-family:sans-serif;
+}
+
+.card{
+background:#111827;
+border-radius:24px;
+padding:24px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+background:#1f2937;
+}
+
+.alert{
+padding:16px;
+border-radius:16px;
+margin-top:12px;
+font-weight:bold;
+}
+
+.red{
+background:#7f1d1d;
+}
+
+.yellow{
+background:#78350f;
+}
+
+.green{
+background:#14532d;
+}
+</style>
+</head>
+
+<body>
+
+<div class="max-w-7xl mx-auto p-6">
+
+<h1 class="text-5xl font-bold mb-4">
+AI Industrial Safety Platform
+</h1>
+
+<p class="text-gray-400 text-xl mb-10">
+工业安全实时监测与AI预警系统
+</p>
+
+<div class="grid md:grid-cols-4 gap-6 mb-10">
+
+<div class="card">
+<p class="text-gray-400">当前工人数</p>
+<h2 class="text-5xl font-bold mt-4">128</h2>
+</div>
+
+<div class="card">
+<p class="text-gray-400">危险警报</p>
+<h2 class="text-5xl font-bold mt-4 text-red-500">5</h2>
+</div>
+
+<div class="card">
+<p class="text-gray-400">疲劳风险</p>
+<h2 class="text-5xl font-bold mt-4 text-yellow-400">18</h2>
+</div>
+
+<div class="card">
+<p class="text-gray-400">安全指数</p>
+<h2 class="text-5xl font-bold mt-4 text-green-400">92%</h2>
+</div>
+
+</div>
+
+<div class="grid md:grid-cols-2 gap-6 mb-10">
+
+<div class="card">
+<h2 class="text-3xl font-bold mb-6">
+工人实时监测
+</h2>
+
+<div class="space-y-4">
+
+<div class="bg-black p-4 rounded-2xl">
+<p>工人编号：A-102</p>
+<p>心率：102</p>
+<p>状态：疲劳预警</p>
+</div>
+
+<div class="bg-black p-4 rounded-2xl">
+<p>工人编号：A-203</p>
+<p>心率：78</p>
+<p>状态：安全</p>
+</div>
+
+<div class="bg-black p-4 rounded-2xl">
+<p>工人编号：A-309</p>
+<p>心率：120</p>
+<p>状态：高温危险</p>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+
+<h2 class="text-3xl font-bold mb-6">
+AI危险预警
+</h2>
+
+<div class="alert red">
+🚨 检测到工人异常跌倒
+</div>
+
+<div class="alert yellow">
+⚠️ 检测到高温危险区域
+</div>
+
+<div class="alert green">
+✅ 当前系统运行正常
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="text-3xl font-bold mb-6">
+风险数据分析
+</h2>
+
+<div class="grid md:grid-cols-3 gap-4">
+
+<div class="bg-black p-6 rounded-2xl">
+<p>今日风险事件</p>
+<h3 class="text-4xl mt-3 font-bold">24</h3>
+</div>
+
+<div class="bg-black p-6 rounded-2xl">
+<p>已处理警报</p>
+<h3 class="text-4xl mt-3 font-bold">18</h3>
+</div>
+
+<div class="bg-black p-6 rounded-2xl">
+<p>AI风险预测</p>
+<h3 class="text-4xl mt-3 font-bold">LOW</h3>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+setInterval(()=>{
+
+const numbers=document.querySelectorAll("h2");
+
+numbers[1].innerHTML=Math.floor(Math.random()*10);
+
+},3000);
+
+</script>
+
+</body>
+</html>
