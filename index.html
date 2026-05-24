@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,62 +10,109 @@
 <style>
 
 body{
-    margin:0;
-    font-family:Arial;
-    background:#f5f7fb;
+margin:0;
+font-family:Arial;
+background:#f4f7fb;
 }
 
 .header{
-    background:#1677ff;
-    color:white;
-    padding:20px;
-    text-align:center;
+background:#1677ff;
+color:white;
+padding:30px;
+text-align:center;
 }
 
 .language{
-    position:fixed;
-    top:20px;
-    right:20px;
+position:fixed;
+top:20px;
+right:20px;
 }
 
 .language button{
-    margin:5px;
-    padding:8px 15px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    background:white;
-    font-weight:bold;
+margin:5px;
+padding:10px 16px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+background:white;
 }
 
 .dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+gap:20px;
+padding:30px;
 }
 
 .card{
-    background:white;
-    border-radius:20px;
-    padding:25px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+background:white;
+border-radius:20px;
+padding:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 .card h2{
-    margin:0;
-    color:#1677ff;
+margin-top:0;
+color:#1677ff;
 }
 
-.alert{
-    color:red;
-    font-weight:bold;
+.table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+.table th{
+background:#1677ff;
+color:white;
+padding:12px;
+}
+
+.table td{
+padding:12px;
+text-align:center;
+border-bottom:1px solid #eee;
+}
+
+.safe{
+color:green;
+font-weight:bold;
+}
+
+.warning{
+color:orange;
+font-weight:bold;
+}
+
+.danger{
+color:red;
+font-weight:bold;
+}
+
+.alert-box{
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+font-weight:bold;
+}
+
+.yellow{
+background:#fff3cd;
+}
+
+.red{
+background:#f8d7da;
+}
+
+.green{
+background:#d1e7dd;
 }
 
 .footer{
-    text-align:center;
-    padding:20px;
-    color:gray;
+text-align:center;
+padding:20px;
+color:gray;
 }
 
 </style>
@@ -80,47 +128,130 @@ body{
 
 <div class="header">
 <h1 id="title">AI工业安全监测平台</h1>
-<p id="subtitle">实时监测工人安全状态</p>
+<p id="subtitle">
+实时监测工人安全状态与危险环境
+</p>
 </div>
 
 <div class="dashboard">
 
 <div class="card">
-<h2 id="workers">工人数量</h2>
-<h1>128</h1>
+
+<h2 id="workerMonitor">
+实时工人监测
+</h2>
+
+<table class="table">
+
+<tr>
+<th>ID</th>
+<th id="nameText">姓名</th>
+<th id="heartText">心率</th>
+<th id="statusText">状态</th>
+<th id="riskText">风险</th>
+</tr>
+
+<tr>
+<td>A102</td>
+<td>Kim</td>
+<td>78</td>
+<td class="safe" id="safe1">正常</td>
+<td class="safe">SAFE</td>
+</tr>
+
+<tr>
+<td>B204</td>
+<td>Lee</td>
+<td>121</td>
+<td class="warning" id="warning1">疲劳</td>
+<td class="warning">WARNING</td>
+</tr>
+
+<tr>
+<td>C333</td>
+<td>Park</td>
+<td>135</td>
+<td class="danger" id="danger1">危险</td>
+<td class="danger">DANGER</td>
+</tr>
+
+</table>
+
 </div>
 
 <div class="card">
-<h2 id="helmet">安全帽佩戴率</h2>
-<h1>97%</h1>
+
+<h2 id="alertTitle">
+AI实时预警
+</h2>
+
+<div class="alert-box yellow"
+id="alert1">
+
+⚠️ 检测到工人 Lee 长时间疲劳作业
+
+</div>
+
+<div class="alert-box red"
+id="alert2">
+
+🚨 工人 Park 心率异常，已启动紧急预警
+
+</div>
+
+<div class="alert-box green"
+id="alert3">
+
+✅ 系统运行正常，现场环境稳定
+
+</div>
+
 </div>
 
 <div class="card">
-<h2 id="temperature">现场温度</h2>
-<h1>26°C</h1>
+
+<h2 id="siteData">
+工地环境数据
+</h2>
+
+<h3 id="tempText">现场温度：26°C</h3>
+<h3 id="humidityText">空气湿度：58%</h3>
+<h3 id="noiseText">噪音等级：中等</h3>
+<h3 id="helmetText">安全帽佩戴率：97%</h3>
+
 </div>
 
 <div class="card">
-<h2 id="heart">心率异常人数</h2>
-<h1 class="alert">2</h1>
-</div>
 
-<div class="card">
-<h2 id="danger">危险区域报警</h2>
-<h1 class="alert">1</h1>
-</div>
+<h2 id="emergencyTitle">
+紧急救援状态
+</h2>
 
-<div class="card">
-<h2 id="emergency">紧急救援状态</h2>
-<h1 style="color:green;">正常</h1>
+<h1 class="safe"
+id="emergencyStatus">
+
+正常运行
+
+</h1>
+
+<p id="emergencyDesc">
+
+系统已连接医院与现场急救中心
+
+</p>
+
 </div>
 
 </div>
 
 <div class="footer">
+
 <p id="footerText">
+
 AI智能安全系统 · 实时预防工地危险事故
+
 </p>
+
 </div>
 
 <script>
@@ -129,37 +260,79 @@ const languageData = {
 
 zh:{
 title:"AI工业安全监测平台",
-subtitle:"实时监测工人安全状态",
-workers:"工人数量",
-helmet:"安全帽佩戴率",
-temperature:"现场温度",
-heart:"心率异常人数",
-danger:"危险区域报警",
-emergency:"紧急救援状态",
+subtitle:"实时监测工人安全状态与危险环境",
+workerMonitor:"实时工人监测",
+name:"姓名",
+heart:"心率",
+status:"状态",
+risk:"风险",
+safe:"正常",
+warning:"疲劳",
+danger:"危险",
+alertTitle:"AI实时预警",
+alert1:"⚠️ 检测到工人 Lee 长时间疲劳作业",
+alert2:"🚨 工人 Park 心率异常，已启动紧急预警",
+alert3:"✅ 系统运行正常，现场环境稳定",
+siteData:"工地环境数据",
+temp:"现场温度：26°C",
+humidity:"空气湿度：58%",
+noise:"噪音等级：中等",
+helmet:"安全帽佩戴率：97%",
+emergencyTitle:"紧急救援状态",
+emergencyStatus:"正常运行",
+emergencyDesc:"系统已连接医院与现场急救中心",
 footer:"AI智能安全系统 · 实时预防工地危险事故"
 },
 
 en:{
 title:"AI Industrial Safety Platform",
-subtitle:"Real-time Worker Safety Monitoring",
-workers:"Workers",
-helmet:"Helmet Wearing Rate",
-temperature:"Site Temperature",
-heart:"Abnormal Heart Rate",
-danger:"Danger Zone Alarm",
-emergency:"Emergency Rescue Status",
+subtitle:"Real-time monitoring of workers and dangerous environments",
+workerMonitor:"Real-time Worker Monitoring",
+name:"Name",
+heart:"Heart Rate",
+status:"Status",
+risk:"Risk",
+safe:"Safe",
+warning:"Fatigue",
+danger:"Danger",
+alertTitle:"AI Real-time Alerts",
+alert1:"⚠️ Worker Lee detected working under fatigue",
+alert2:"🚨 Worker Park heart rate abnormality detected",
+alert3:"✅ System running normally",
+siteData:"Construction Site Data",
+temp:"Site Temperature: 26°C",
+humidity:"Humidity: 58%",
+noise:"Noise Level: Medium",
+helmet:"Helmet Wearing Rate: 97%",
+emergencyTitle:"Emergency Rescue Status",
+emergencyStatus:"Operating Normally",
+emergencyDesc:"Connected to hospital emergency center",
 footer:"AI Smart Safety System · Preventing Construction Accidents"
 },
 
 kr:{
 title:"AI 산업 안전 모니터링 플랫폼",
-subtitle:"실시간 작업자 안전 모니터링",
-workers:"작업자 수",
-helmet:"안전모 착용률",
-temperature:"현장 온도",
-heart:"심박 이상 인원",
-danger:"위험 구역 경보",
-emergency:"긴급 구조 상태",
+subtitle:"실시간 작업자 안전 및 위험 환경 모니터링",
+workerMonitor:"실시간 작업자 모니터링",
+name:"이름",
+heart:"심박수",
+status:"상태",
+risk:"위험",
+safe:"정상",
+warning:"피로",
+danger:"위험",
+alertTitle:"AI 실시간 경고",
+alert1:"⚠️ 작업자 Lee 장시간 피로 작업 감지",
+alert2:"🚨 작업자 Park 심박 이상 감지",
+alert3:"✅ 시스템 정상 작동 중",
+siteData:"현장 환경 데이터",
+temp:"현장 온도: 26°C",
+humidity:"습도: 58%",
+noise:"소음 수준: 중간",
+helmet:"안전모 착용률: 97%",
+emergencyTitle:"긴급 구조 상태",
+emergencyStatus:"정상 작동",
+emergencyDesc:"병원 및 응급 센터 연결 완료",
 footer:"AI 스마트 안전 시스템 · 사고 예방"
 }
 
@@ -173,23 +346,65 @@ languageData[lang].title;
 document.getElementById("subtitle").innerText =
 languageData[lang].subtitle;
 
-document.getElementById("workers").innerText =
-languageData[lang].workers;
+document.getElementById("workerMonitor").innerText =
+languageData[lang].workerMonitor;
 
-document.getElementById("helmet").innerText =
-languageData[lang].helmet;
+document.getElementById("nameText").innerText =
+languageData[lang].name;
 
-document.getElementById("temperature").innerText =
-languageData[lang].temperature;
-
-document.getElementById("heart").innerText =
+document.getElementById("heartText").innerText =
 languageData[lang].heart;
 
-document.getElementById("danger").innerText =
+document.getElementById("statusText").innerText =
+languageData[lang].status;
+
+document.getElementById("riskText").innerText =
+languageData[lang].risk;
+
+document.getElementById("safe1").innerText =
+languageData[lang].safe;
+
+document.getElementById("warning1").innerText =
+languageData[lang].warning;
+
+document.getElementById("danger1").innerText =
 languageData[lang].danger;
 
-document.getElementById("emergency").innerText =
-languageData[lang].emergency;
+document.getElementById("alertTitle").innerText =
+languageData[lang].alertTitle;
+
+document.getElementById("alert1").innerText =
+languageData[lang].alert1;
+
+document.getElementById("alert2").innerText =
+languageData[lang].alert2;
+
+document.getElementById("alert3").innerText =
+languageData[lang].alert3;
+
+document.getElementById("siteData").innerText =
+languageData[lang].siteData;
+
+document.getElementById("tempText").innerText =
+languageData[lang].temp;
+
+document.getElementById("humidityText").innerText =
+languageData[lang].humidity;
+
+document.getElementById("noiseText").innerText =
+languageData[lang].noise;
+
+document.getElementById("helmetText").innerText =
+languageData[lang].helmet;
+
+document.getElementById("emergencyTitle").innerText =
+languageData[lang].emergencyTitle;
+
+document.getElementById("emergencyStatus").innerText =
+languageData[lang].emergencyStatus;
+
+document.getElementById("emergencyDesc").innerText =
+languageData[lang].emergencyDesc;
 
 document.getElementById("footerText").innerText =
 languageData[lang].footer;
